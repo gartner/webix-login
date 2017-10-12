@@ -1,5 +1,5 @@
 {
-  "name": "Test-App 2",
+  "name": "test-app-2",
   "version": "0.1.0",
   "description": "Test App 2",
   "main": "index.html",
@@ -11,13 +11,13 @@
     "app"
   ],
   "dependencies": {
-    "almond": "~0.3.1",
-    "webix": "~2.4.7",
-    "routie": "~0.3.2",
-    "requirejs": "~2.1.18",
-    "webix-mvc-core": "~0.2.0",
+    "almond": "~0.3",
+    "webix": "~4.4",
+    "routie": "~0.3",
+    "requirejs": "~2.1",
     "polyglot": "~0.4.3",
     "less": "~2.5.1",
-    "js-cookie": "~2.0.3"
+    "js-cookie": "~2.0",
+    "webix-jet-core": "~0.1"
   }
 }
