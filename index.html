@@ -2,32 +2,14 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>My App!</title>
-
-	<link type="text/css" rel="stylesheet" href="libs/webix/codebase/webix.css">
-	<link type="text/css" rel="stylesheet" href="assets/app.css">
-
-
-
-
+	<title></title>
 	<!-- Webix Library -->
-	<script type="text/javascript" src="libs/webix/codebase/webix_debug.js"></script>
+	<script type="text/javascript" src="//cdn.webix.com/edge/webix.js"></script>
+	<link rel="stylesheet" type="text/css" href="//cdn.webix.com/edge/webix.css">
 
-
-
-
-	<!-- Development only -->
-	<script type="text/javascript" src="libs/less/dist/less.min.js"></script>
-
-	<script type="text/javascript" src="libs/js-cookie/src/js.cookie.js"></script>
-	<!-- The app's logic -->
-	<script type="text/javascript" data-main="app" src="libs/requirejs/require.js"></script>
-	<script type="text/javascript">
-		require.config({
-			urlArgs: "bust=" + (new Date()).getTime()
-		});
-	</script>
-
+	<!-- App -->
+	<script type="text/javascript" src="codebase/myapp.js"></script>
+	<link rel="stylesheet" type="text/css" href="codebase/myapp.css">
 </head>
 <body></body>
 </html>

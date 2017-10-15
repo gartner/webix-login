@@ -1,20 +1,17 @@
-/**
- * Created by Mads on 03-10-2015.
- */
-define([
-    "models/user"
-], function(user) {
+import {JetView} from "webix-jet";
+import * as Cookies from "js-cookie";
 
-    "use strict";
+export default class LoginView extends JetView {
+    config() {
+        let values = webix.copy({
+            username: '',
+            password: '',
+            rememberme: false
+        }, Cookies.getJSON("Crm"));
 
-    var values = webix.copy({
-        username: '',
-        password: '',
-        rememberme: false
-    }, Cookies.getJSON("Crm"));
+        const authService = this.app.getService('auth');
 
-    return {
-        $ui: {
+        let ui = {
             cols: [
                 { gravity:1, template:"" },
                 {
@@ -30,9 +27,9 @@ define([
                                 {
                                     view:        "text",
                                     id:          "username",
-                                    name: "username",
+                                    name:        "username",
                                     label:       "Username",
-                                    value: values.username,
+                                    value:       values.username,
                                     required:    true,
                                     placeholder: 'username'
                                 },
@@ -63,15 +60,27 @@ define([
                                     label: "Login",
                                     hotkey: "enter",
                                     click: function() {
-                                        if ($$("loginForm").validate()) {
-                                            var values = $$("loginForm").getValues();
+                                        let component = $$("loginForm");
+                                        if (component.validate()) {
+                                            component.disable();
+                                            component.showProgress();
+                                            let values = $$("loginForm").getValues();
                                             if (true === values.rememberme) {
                                                 Cookies.set("Crm", values);
                                             } else {
                                                 // Clear cookie
                                                 Cookies.remove("Crm");
                                             }
-                                            user.login(values.username, values.password, $$('loginForm'));
+                                            authService.login(values.username, values.password).catch(e => {
+                                                webix.message({
+                                                    type: "error",
+                                                    text: "User/password combination not recognized"
+                                                });
+
+                                                component.hideProgress();
+                                                component.enable();
+                                                component.focus();
+                                            });
                                         } else {
                                             $$("loginForm").focus();
                                         }
@@ -83,15 +92,17 @@ define([
                                 validateEvent: "key"
                             }
                         },
-                        {gravity: 1, temlate: ""}
+                        {gravity: 1, template: ""}
                     ]
                 },
                 { gravity:1, template:"" }
             ]
-        },
+        };
 
-        $oninit: function() {
-            $$("loginForm").focus();
-        }
+        return ui;
     };
-});
+
+    init(view, url) {
+        webix.extend($$("loginForm"), webix.ProgressBar);
+    };
+}

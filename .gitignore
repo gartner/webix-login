@@ -1,4 +1,4 @@
 .idea/
-libs/
-deploy/
+codebase/
 node_modules/
+*.log
